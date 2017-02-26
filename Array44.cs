@@ -11,8 +11,8 @@ namespace PT4Tasks
         public static void Solve()
         {
             Task("Array44");
-            var arr = GetEnumerableInt().ToList();
-            int n = arr.Count;
+            var arr = GetEnumerableInt().ToArray();
+            int n = arr.Length;
             int i = 0, j = 0;
 
             while (i != n)

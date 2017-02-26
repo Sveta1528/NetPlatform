@@ -11,8 +11,8 @@ namespace PT4Tasks
         public static void Solve()
         {
             Task("Array35");
-            var arr = GetEnumerableDouble().ToList();
-            int n = arr.Count;
+            var arr = GetEnumerableDouble().ToArray();
+            int n = arr.Length;
             var list = new List<double>();
             if (arr[0] > arr[1]) list.Add(arr[0]);
             if (arr[n - 1] > arr[n - 2]) list.Add(arr[n - 1]);

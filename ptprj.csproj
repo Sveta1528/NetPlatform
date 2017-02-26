@@ -57,7 +57,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="String61.cs" />
+    <Compile Include="Matrix60.cs" />
     <Compile Include="pt4main.cs" />
   </ItemGroup>
   <ItemGroup>
