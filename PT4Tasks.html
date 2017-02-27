@@ -1,0 +1,38 @@
+<!-- Programming Taskbook 4.8 | Copyright (c) M. Abramyan, 1998-2009 -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1251">
+<title>PT4Tasks</title>
+<style type="text/css">
+H1{font-family:"Arial";font-size:20pt;text-indent:0px;margin-top:10px; margin-right:10px; margin-bottom:0px; margin-left:10px;}
+H2{font-family:"Arial";font-size:16pt;text-indent:0px;margin-top:5px; margin-right:10px; margin-bottom:0px; margin-left:10px;}
+P{font-family:"Times New Roman";text-align:left;font-size:12pt;text-indent:0px;margin-top:0px; margin-right:10px; margin-bottom:0px; margin-left:10px;}
+TD{font-family:"Times New Roman";font-size:12pt;}
+LI{font-family:"Times New Roman";font-size:12pt;}
+UL{font-family:"Times New Roman";font-size:12pt;}
+SUB{font-family:"Times New Roman";font-size:8pt;}
+SUP{font-family:"Times New Roman";font-size:8pt;}
+TABLE{margin-top:0px; margin-bottom:0px;}
+P.ptAuthor{text-align:right;font-size:10pt;font-style:italic;}
+P.ptTask{text-align:justify;text-indent:-50px;margin-top:5px; margin-left:60px;}
+P.ptTaskQuote{text-align:left;margin-left:120px;margin-top:0px;margin-bottom:0px;}
+P.ptTaskCenter{text-align:center;margin-left:60px;margin-top:0px;margin-bottom:0px;}
+P.ptTaskContinue{text-align:justify;margin-left:60px;}
+P.ptComment{text-align:justify;text-indent:50px;margin-top:5px;}
+P.ptCommentCenter{text-align:center;}
+P.ptCommentQuote{text-align:left;margin-left:120px;margin-top:0px;margin-bottom:0px;}
+P.ptCommentContinue{text-align:justify;}
+P.ptFooter{text-align:right;font-size:10pt;font-style:italic;margin-right:0px;}
+SPAN.ptSpecial{font-family:"Arial";}
+PRE{font-family:"Courier New";text-align:left;font-size:10pt;text-indent:0px;margin-top:5px; margin-right:10px; margin-bottom:0px; margin-left:60px;}
+CODE{font-size:10pt;}
+TT{font-size:10pt;}
+P.ptPicture{font-family:Arial, sans-serif;margin-top: 5px;margin-bottom: 5px;margin-left: 60px;font-size: small;color: #000080;text-indent: 0pt;text-align: justify}
+</style>
+</head><body>
+<h1>Деревья (с&nbsp;применением объектов)</h1>
+<p class="ptAuthor">Автор: М.&nbsp;Э.&nbsp;Абрамян, 2008, 2012</p>
+<p class="ptComment"> Все числа, используемые в заданиях на деревья, являются <i>целыми</i>. Все объекты имеют тип Node, который определен в задачнике Programming Taskbook. В заданиях на деревья у объектов типа Node используются свойства Data, Left, Right и Parent, поэтому при выполнении заданий можно считать, что класс Node включает следующие открытые свойства и методы: </p><p class="ptComment">[C#] </p><p class="ptCommentQuote"><i>// Конструкторы</i>:<br> &nbsp; &nbsp;<tt>public Node();</tt><br> &nbsp; &nbsp;<tt>public Node(int aData);</tt><br> &nbsp; &nbsp;<tt>public Node(Node aLeft, Node aRight, int aData);</tt><br> &nbsp; &nbsp;<tt>public Node(Node aLeft, Node aRight, int aData, Node aParent);</tt><br><i>// Свойства (доступны для чтения и для записи)</i>:<br> &nbsp; &nbsp;<tt>public int Data;</tt><br> &nbsp; &nbsp;<tt>public Node Left;</tt><br> &nbsp; &nbsp;<tt>public Node Right;</tt><br> &nbsp; &nbsp;<tt>public Node Parent;</tt><br><i>// Метод, освобождающий ресурсы, используемые объектом Node</i>:<br> &nbsp; &nbsp;<tt>public void Dispose();</tt></p><p class="ptCommentContinue"></p><p class="ptComment">[VB.NET] </p><p class="ptCommentQuote"><i>' Конструкторы</i>:<br> &nbsp; &nbsp;<tt>Public Sub New()</tt><br> &nbsp; &nbsp;<tt>Public Sub New(aData As Integer)</tt><br> &nbsp; &nbsp;<tt>Public Sub New(aLeft As Node, aRight As Node, _</tt><br> &nbsp; &nbsp; &nbsp; &nbsp;<tt>aData As Integer)</tt><br> &nbsp; &nbsp;<tt>Public Sub New(aLeft As Node, aRight As Node, _</tt><br> &nbsp; &nbsp; &nbsp; &nbsp;<tt>aData As Integer, aParent As Node)</tt><br><i>' Свойства (доступны для чтения и для записи)</i>:<br> &nbsp; &nbsp;<tt>Public Property Data() As Integer</tt><br> &nbsp; &nbsp;<tt>Public Property Left() As Node</tt><br> &nbsp; &nbsp;<tt>Public Property Right() As Node</tt><br> &nbsp; &nbsp;<tt>Public Property Parent() As Node</tt><br><i>' Метод, освобождающий ресурсы, используемые объектом Node</i>:<br> &nbsp; &nbsp;<tt>Public Sub Dispose() Implements IDisposable.Dispose</tt></p><p class="ptCommentContinue"></p><p class="ptComment">[Java] </p><p class="ptCommentQuote"><i>// Конструкторы</i>:<br> &nbsp; &nbsp;<tt>Node();</tt><br> &nbsp; &nbsp;<tt>Node(int aData);</tt><br> &nbsp; &nbsp;<tt>Node(Node aLeft, Node aRight, int aData);</tt><br> &nbsp; &nbsp;<tt>Node(Node aLeft, Node aRight, int aData, Node aParent);</tt><br><i>// Методы для доступа к свойствам</i>:<br> &nbsp; &nbsp;<tt>int getData();</tt><br> &nbsp; &nbsp;<tt>void setData(int value);</tt><br> &nbsp; &nbsp;<tt>Node getLeft();</tt><br> &nbsp; &nbsp;<tt>void setLeft(Node value);</tt><br> &nbsp; &nbsp;<tt>Node getRight();</tt><br> &nbsp; &nbsp;<tt>void setRight(Node value);</tt><br> &nbsp; &nbsp;<tt>Node getParent();</tt><br> &nbsp; &nbsp;<tt>void setParent(Node value);</tt><br><i>// Метод, освобождающий ресурсы, используемые объектом Node</i>:<br> &nbsp; &nbsp;<tt>void dispose();</tt></p><p class="ptCommentContinue"></p><p class="ptComment">[Python] </p><p class="ptCommentQuote"><i># Конструкторы</i>:<br> &nbsp; &nbsp;<tt>Node(data = 0)</tt><br> &nbsp; &nbsp;<tt>Node.for_tree(data = 0, left = None, right = None, parent = None)</tt><br><i># Свойства (доступны для чтения и для записи)</i>:<br> &nbsp; &nbsp;<tt>Data</tt><br> &nbsp; &nbsp;<tt>Left</tt><br> &nbsp; &nbsp;<tt>Right</tt><br> &nbsp; &nbsp;<tt>Parent</tt><br><i># Метод, освобождающий ресурсы, используемые объектом Node</i>:<br> &nbsp; &nbsp;<tt>dispose()</tt></p><p class="ptCommentContinue"></p><p class="ptComment">[Ruby] </p><p class="ptCommentQuote"><i># Конструкторы</i>:<br> &nbsp; &nbsp;<tt>Node.new()</tt><br> &nbsp; &nbsp;<tt>Node.new(data)</tt><br> &nbsp; &nbsp;<tt>Node.new(left, right, data)</tt><br> &nbsp; &nbsp;<tt>Node.new(left, right, data, parent)</tt><br><i># Свойства (доступны для чтения и для записи)</i>:<br> &nbsp; &nbsp;<tt>data</tt><br> &nbsp; &nbsp;<tt>left</tt><br> &nbsp; &nbsp;<tt>right</tt><br> &nbsp; &nbsp;<tt>parent</tt><br><i># Метод, освобождающий ресурсы, используемые объектом Node</i>:<br> &nbsp; &nbsp;<tt>dispose()</tt></p><p class="ptCommentContinue"></p><p class="ptComment">В большинстве заданий при работе с объектами типа Node требуются только свойства Data, Left и Right; свойство Parent используется лишь в заданиях на обработку дереьев с обратной связью. </p><p class="ptComment"><i>Значением</i> вершины дерева (т.&nbsp;е. объекта типа Node) считается значение ее свойства Data. </p><p class="ptComment">Так как во всех рассматриваемых языках принята ссылочная объектная модель, т.&nbsp;е. любая переменная объектного типа является <i>ссылкой</i> на ту область памяти, в которой фактически размещен данный объект, выражение &#171;вывести ссылку на вершину дерева&#187; в формулировках заданий всегда означает, что требуется вывести значение переменной типа Node, связанной с этой вершиной.</p>
+<h2>Анализ бинарного дерева</h2>
+<p class="ptTask"><span class="ptSpecial">Tree10</span>. Дан корень <i>A</i><sub>1</sub> непустого дерева. Для каждого из уровней данного дерева, начиная с нулевого, вывести количество вершин, находящихся на этом уровне. Считать, что глубина дерева не превосходит&nbsp;10. </p><p class="ptTaskContinue">Описание класса Node приводится в преамбуле к данной группе. Для просмотра преамбулы вызовите задание с суффиксом #, например Task(&quot;Tree9#&quot;).</p>
+<hr noshade>
+<p class="ptFooter">Дата генерации страницы: 27.02.2017.</p>
+</body></html>
