@@ -29,8 +29,8 @@ namespace PT4Tasks
                 pos++;
             }
             pos++;
-            for (int i = pos; i < s.Length - 1; i++)
-                right += s[i];
+            right = s.Substring(pos, s.Length-pos);
+
         }
 
         static bool Recur(string s)

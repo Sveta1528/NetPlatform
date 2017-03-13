@@ -16,7 +16,7 @@ namespace PT4Tasks
             DateTime res = new DateTime();
             string s;
             while ((s = sourceStream.ReadLine()) != null)
-                foreach (var elem in s.Split(new char[] {' ', 'P'}, StringSplitOptions.RemoveEmptyEntries))
+                foreach (var elem in s.TrimEnd().Split(new char[] {' ', 'P'}, StringSplitOptions.RemoveEmptyEntries))
                 {
                     var date = DateTime.Parse(elem);
                     if (date.Month > 8 && date.Month < 12 && date > res)

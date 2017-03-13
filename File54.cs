@@ -17,16 +17,16 @@ namespace PT4Tasks
             var sourceStream = new System.IO.BinaryReader(System.IO.File.Open(GetString(), System.IO.FileMode.Open));
 
             int count = sourceStream.ReadInt32();
-            int sum_length = 0;
+            int sumLength = 0;
             for (int i = 1; i <= count; i++)
             {
                 sourceStream.BaseStream.Seek(i*sizeof(int),SeekOrigin.Begin);
                 int length = sourceStream.ReadInt32();
-                sum_length += length;
+                sumLength += length;
                 double sum = 0;
                 for (int j = 1; j <= length; j++)
                 {
-                    sourceStream.BaseStream.Seek((count+1)*sizeof(int)+(sum_length)*sizeof(int)-j*sizeof(int), SeekOrigin.Begin);
+                    sourceStream.BaseStream.Seek((count+1)*sizeof(int)+(sumLength)*sizeof(int)-j*sizeof(int), SeekOrigin.Begin);
                     sum+= sourceStream.ReadInt32();
                 }
                 resultWriter.Write(sum/length);

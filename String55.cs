@@ -16,7 +16,8 @@ namespace PT4Tasks
             Task("String55");
 
             string str = GetString();
-            var res = Regex.Matches(str, @"\b\w+\b*").Cast<Match>().Select(m => m.Value).ToList().OrderByDescending(s => s.Length).First();
+            var res = Regex.Matches(str, @"\b\w+\b").Cast<Match>()
+                            .Select(m => m.Value).ToList().OrderByDescending(s => s.Length).First();
             Put(res);
         }
     }

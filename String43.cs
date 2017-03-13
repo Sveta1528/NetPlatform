@@ -14,7 +14,7 @@ namespace PT4Tasks
             Task("String43");
 
             string str = GetString();
-            var m = Regex.Matches(str, @"\w*[À]+\w*\s*");
+            var m = Regex.Matches(str, @"\w*À\w*");
             Put(m.Count);
         }
     }

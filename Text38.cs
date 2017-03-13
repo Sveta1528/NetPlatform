@@ -8,17 +8,26 @@ namespace PT4Tasks
 {
     public class MyTask: PT
     {
+        private static int k;
+
         public static void Solve()
         {
             Task("Text38");
 
-            int k = GetInt();
+            k = GetInt();
             var sourceStream = new System.IO.StreamReader(GetString(), Encoding.Default);
             var finalStream = new System.IO.StreamWriter(GetString(), true, Encoding.Default);
-            string cur = "", res = " ";
+            string cur;
+            string fw;
+            StringBuilder sb = new StringBuilder();
             while ((cur = sourceStream.ReadLine()) != null)
             {
-                finalStream.WriteLine();
+                for (int i=0; i<cur.Length; i++)
+                {
+                    sb.Append(cur[i]);
+                    
+                }
+                //finalStream.WriteLine();
             }
 
             sourceStream.Close();

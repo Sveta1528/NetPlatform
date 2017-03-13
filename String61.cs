@@ -14,12 +14,9 @@ namespace PT4Tasks
         {
             Task("String61");
             string str = GetString();
-            var m = Regex.Matches(str, @"(\w+[!-?]*[0-1]*)+");
-            int sz = m.Count - 2;
-            if (sz == 0)
-                Put(((char)92).ToString());
-            else Put(m[sz].ToString());
-
+            var m = Regex.Matches(str, @"([^\\])+");
+            Put(m.Count - 2 == 0 ? "\\" : m[m.Count - 2].Value);
+            
         }
     }
 }
