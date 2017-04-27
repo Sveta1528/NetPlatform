@@ -29,101 +29,40 @@ namespace PT4Tasks
         //     значений r, полученных из элементов e последовательности,
         //     cmt - строковый комментарий.
 
-        class A
-        {
-
-
-            public string street { get; set; }
-            public int year { get; set; }
-            public int code { get; set; }
-
-            public A(string st, int y, int c)
-            {
-                street = st;
-                year = y;
-                code = c;
-            }
-        }
-
-        class C
-        {
-
-
-            public int code { get; set; }
-            public int perc { get; set; }
-            public string name { get; set; }
-
-            public C(int c, int p, string n)
-            {
-                code = c;
-                perc = p;
-                name = n;
-            }
-        }
-
-        class D
-        {
-
-            public int price { get; set; }
-            public string articul { get; set; }
-            public string name { get; set; }
-
-            public D(int p, string a, string n)
-            {
-                price = p;
-                articul = a;
-                name = n;
-            }
-        }
-
-        class E
-        {
-
-            public string name { get; set; }
-            public string articul { get; set; }
-            public int code { get; set; }
-
-            public E(string n, string a, int c)
-            {
-                articul = a;
-                name = n;
-                code = c;
-            }
-        }
 
         public static void Solve()
         {
             Task("LinqObj96");
 
-            var splA = System.IO.File.ReadAllLines(GetString(), Encoding.Default);
-            var splC = System.IO.File.ReadAllLines(GetString(), Encoding.Default);
-            var splD = System.IO.File.ReadAllLines(GetString(), Encoding.Default);
-            var splE = System.IO.File.ReadAllLines(GetString(), Encoding.Default);
+            var splA = System.IO.File.ReadLines(GetString(), Encoding.Default);
+            var splC = System.IO.File.ReadLines(GetString(), Encoding.Default);
+            var splD = System.IO.File.ReadLines(GetString(), Encoding.Default);
+            var splE = System.IO.File.ReadLines(GetString(), Encoding.Default);
             var fname = GetString();
 
             var arrA = splA.Select(s =>
             {
                 var sp = s.Split(' ');
-                return new A(sp[0], int.Parse(sp[1]), int.Parse(sp[2]));
-            }).ToArray();
+                return new { street=sp[0], year=int.Parse(sp[1]), code=int.Parse(sp[2])};
+            });
 
             var arrC = splC.Select(s =>
             {
                 var sp = s.Split(' ');
-                return new C(int.Parse(sp[0]), int.Parse(sp[1]), sp[2]);
-            }).ToArray();
+                return new { code = int.Parse(sp[0]), perc = int.Parse(sp[1]), name = sp[2]};
+            });
 
             var arrD = splD.Select(s =>
             {
                 var sp = s.Split(' ');
-                return new D(int.Parse(sp[0]), sp[1], sp[2]);
-            }).ToArray();
+                return new {price = int.Parse(sp[0]), articul = sp[1], name =sp[2]};
+            });
 
             var arrE = splE.Select(s =>
             {
                 var sp = s.Split(' ');
-                return new E(sp[0], sp[1], int.Parse(sp[2]));
-            }).ToArray();
+                return new  { name = sp[0], articul = sp[1], code =int.Parse(sp[2])};
+            });
 
             List<string> result = new List<string>();
             foreach (var y in arrA.OrderBy(x => x.year).GroupBy(x => x.year).ToArray())
@@ -136,15 +75,15 @@ namespace PT4Tasks
                     List<int> codesTovs = new List<int>();
                     foreach (var code in codes)
                     {
-                        var perc = arrC.Where(x => x.name == shop.First().name).
-                                   Where(x => x.code == code).DefaultIfEmpty(new C(code, 0, shop.First().name)).ToArray().First().perc;
+                        var percent = arrC.Where(x => x.name == shop.First().name).
+                                   Where(x => x.code == code).DefaultIfEmpty(new {code=0, perc=0, name = shop.First().name}).First().perc;
 
-                        var shopCodeArticules = shop.Where(e => e.code == code).Select(e => e.articul).ToArray();
+                        var shopCodeArticules = shop.Where(e => e.code == code).Select(e => e.articul);
 
                         var tovs = arrD.Where(x => x.name == shop.First().name).
                                     Where(x => shopCodeArticules.Contains(x.articul)).
-                                    Select(x => (perc > 0 ? x.price - Math.Truncate(x.price * 0.01 * perc) : x.price) * 
-                                    shop.Where(e => e.code == code).Where(e => e.articul == x.articul).ToArray().Count()).ToArray();
+                                    Select(x => (percent > 0 ? x.price - Math.Truncate(x.price * 0.01 * percent) : x.price) * 
+                                    shop.Where(e => e.code == code).Where(e => e.articul == x.articul).ToArray().Count());
 
                         codesTovs.Add((int)tovs.Sum());
                     }

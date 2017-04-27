@@ -57,7 +57,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="LinqObj96.cs" />
+    <Compile Include="Tree77.cs" />
     <Compile Include="pt4main.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -25,32 +25,14 @@ namespace PT4Tasks
         public static void Solve()
         {
             Task("LinqXml5");
-            var f = new System.IO.StreamReader(GetString(), Encoding.Default);
-            XmlDocument d = new XmlDocument();
-            d.AppendChild(d.CreateXmlDeclaration("1.0", "windows-1251", null));
-            XmlElement root = d.CreateElement("root");
-            d.AppendChild(root);
-            string s;
-            int lines = 0;
-            while ((s = f.ReadLine()) != null)
-            {
-                var line = d.CreateElement("line");
-                var at = d.CreateAttribute("num");
-                at.InnerText = (++lines).ToString();
-                line.Attributes.Append(at);
-                root.AppendChild(line);
-                var arr = s.Split(' ');
-                for (int i = 0; i < arr.Length; i++)
-                {
-                    var word = d.CreateElement("word");
-                    var num = d.CreateAttribute("num");
-                    num.InnerText = (i + 1).ToString();
-                    word.Attributes.Append(num);
-                    word.InnerText = arr[i];
-                    line.AppendChild(word);
-                }
-            }
+            var a = File.ReadAllLines(GetString(), Encoding.Default);
+            XDocument d = new XDocument(
+                new XDeclaration(null, "windows-1251", null),
+                new XElement("root",
+                    a.Select((e, lines) => new XElement("line", new XAttribute("num", lines + 1),
+                        e.Split(' ').Select((x, words) => new XElement("word", x, new XAttribute("num", words + 1)))))));
             d.Save(GetString());
+
 
         }
     }

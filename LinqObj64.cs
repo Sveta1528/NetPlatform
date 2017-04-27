@@ -29,41 +29,28 @@ namespace PT4Tasks
         //     значений r, полученных из элементов e последовательности,
         //     cmt - строковый комментарий.
 
-        class Mark
-        {
-            public int level { get; set; }
-            public string subject { get; set; }
-            public string name { get; set; }
-            public int mark { get; set; }
-
-            public Mark(int l, string n, string init, string sbj, int m)
-            {
-                level = l;
-                name = n + " " + init;
-                subject = sbj;
-                mark = m;
-            }
-        }
 
         public static void Solve()
         {
             Task("LinqObj64");
 
-            var spl = System.IO.File.ReadAllLines(GetString(), Encoding.Default);
+            var spl = System.IO.File.ReadLines(GetString(), Encoding.Default);
             var fname = GetString();
             var arr = spl.Select(s =>
             {
                 var sp = s.Split(' ');
-                return new Mark(int.Parse(sp[0]), sp[1], sp[2], sp[3], int.Parse(sp[4]));
-            }).ToArray();
-            var result = arr.Where(e => e.subject == "Информатика").OrderBy(x => x.level).ThenBy(x => x.name).GroupBy(x => x.name).Where(x => x.Average(e => e.mark) >= 4.00).Select(x =>
-            {
-                return String.Format("{0} {1} {2}", x.First().level, x.First().name,
-                    (Math.Round(x.Average(e => e.mark) / 1.00, 2))
-                    .ToString("0.00", System.Globalization.CultureInfo.InvariantCulture));
-            }).ToArray();
+                return new { level = int.Parse(sp[0]), name = sp[1]+" "+sp[2], subject = sp[3], mark = int.Parse(sp[4])};
+            });
 
-            File.WriteAllLines(fname, result.DefaultIfEmpty("Требуемые учащиеся не найдены").ToArray(), Encoding.Default);
+            var result = arr.Where(e => e.subject == "Информатика").OrderBy(x => x.level).ThenBy(x => x.name).
+                GroupBy(x => x.name).Where(x => x.Average(e => e.mark) >= 4.00).Select(x =>
+                {
+                    return String.Format("{0} {1} {2}", x.First().level, x.First().name,
+                        (Math.Round(x.Average(e => e.mark) / 1.00, 2))
+                        .ToString("0.00", System.Globalization.CultureInfo.InvariantCulture));
+                }).DefaultIfEmpty("Требуемые учащиеся не найдены");
+
+            File.WriteAllLines(fname, result, Encoding.Default);
 
         }
     }

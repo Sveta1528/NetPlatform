@@ -31,16 +31,15 @@ namespace PT4Tasks
             var arr = d.Descendants().Attributes().Distinct().GroupBy(x=>x.Name).Select(x =>
             {
                 var n = x.First().Name;
-                var values = x.OrderBy(y=>y.Value).Select(y => y.Value);
-                return new Tuple<XName,IEnumerable<string>>(n,values);
+                var v = x.OrderBy(y=>y.Value).Select(y => y.Value);
+                return new {name= n,values = v};
             });
 
 
             foreach (var elem in arr)
             {
-
-                Put(elem.Item1.ToString());
-                foreach (var x in elem.Item2)
+                Put(elem.name.ToString());
+                foreach (var x in elem.values)
                     Put(x.ToString());
             }
 

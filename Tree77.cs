@@ -9,79 +9,57 @@ namespace PT4Tasks
 {
     public class MyTask: PT
     {
-        public static void AddNode(String s, ref Node node)
+        public static Node CreateTree(string[] ops, ref int i)
         {
-            if (s == "+")
+            int val;
+            if (int.TryParse(ops[i], out val))
             {
-                node.Left=new Node(-1);
-                node.Left.Parent = node;
-                node = node.Left;
-                return;
+                i++;
+                return new Node(val);
             }
-            if (s == "-")
+            else
             {
-                node.Left = new Node(-2);
-                node.Left.Parent = node;
-                node = node.Left;
-                return;
+                var root = new Node();
+
+                if (ops[i] == "+")
+                    root = new Node(-1);
+                if (ops[i] == "-")
+                    root = new Node(-2);
+                if (ops[i] == "*")
+                    root = new Node(-3);
+                i++;
+
+                root.Right = CreateTree(ops, ref i);
+                root.Left = CreateTree(ops, ref i);
+
+
+                return root;
             }
-            if (s == "*")
-            {
-                node.Left = new Node(-3);
-                node.Left.Parent = node;
-                node = node.Left;
-                return;
-            }
-            if (node.Right == null)
-            {
-                node.Right = new Node(Int32.Parse(s));
-                node.Right.Parent = node;
-                return;
-            }
-            if (node.Left == null)
-            {
-                node.Left = new Node(Int32.Parse(s));
-                node.Left.Parent = node;
-                return;
-            }
-            node = node.Parent;
-            AddNode(s, ref node);
         }
-        static void Recur(Node r)
+
+        public static void ReverseTree(Node n)
         {
-            if (r == null) return;
-            //Put(r);
+            if (n == null) return;
 
-            Recur(r.Left);
-            Recur(r.Right);
-
+            var t = n.Left;
+            n.Left = n.Right;
+            n.Right = t;
+            ReverseTree(n.Left);
+            ReverseTree(n.Right);
         }
 
         public static void Solve()
         {
             Task("Tree77");
-            var ss = GetString();
-            var record = GetString().Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
-            Node root = new Node();
-            if (record[0] == "+") root.Data = -1;
-            else if (record[0] == "-") root.Data = -2;
-            else if (record[0] == "*") root.Data = -3;
-            else root.Data=Int32.Parse(record[0]);
-            for (int i=1; i<record.Length; i++)
-            {
-                AddNode(record[i],ref root);
 
-            }
-            //Recur(root);
-            Put(root);
-            /*
-             * var fst = numbers.Dequeue();
-            var snd = numbers.Dequeue();
-            var op = operation.Pop();
-            ShowLine(fst);
-            ShowLine(snd);
-            ShowLine(op);
-            */
+            int i = 0;
+
+            GetString();
+            var s = new string(GetString().ToArray());
+            var tree = CreateTree(s.Split(' '), ref i);
+            ReverseTree(tree);
+
+            Put(tree);
 
         }
     }

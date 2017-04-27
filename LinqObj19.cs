@@ -29,20 +29,6 @@ namespace PT4Tasks
         //     значений r, полученных из элементов e последовательности,
         //     cmt - строковый комментарий.
 
-        class Enrollee
-        {
-            public string name { get; set; }
-            public int year { get; set; }
-            public int school { get; set; }
-
-            public Enrollee(string n, int y, int s)
-            {
-                name = n;
-                year = y;
-                school = s;
-            }
-
-        }
 
 
         public static void Solve()
@@ -50,12 +36,13 @@ namespace PT4Tasks
             Task("LinqObj19");
             var spl = System.IO.File.ReadAllLines(GetString(), Encoding.Default);
             var filename = GetString();
+
             var arr = spl.Select(s =>
             {
                 var sp = s.Split(' ');
-                return new Enrollee(sp[0], int.Parse(sp[1]), int.Parse(sp[2]));
+                return new { name = sp[0], year = sp[1], school = int.Parse(sp[2])};
             });
-            arr.Show();
+
             var result = arr.OrderBy(x=>x.school).GroupBy(x => x.school).Select(x =>
             {
                 var e = x.First();
